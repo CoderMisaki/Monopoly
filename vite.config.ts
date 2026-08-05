@@ -5,9 +5,20 @@ export default defineConfig({
     // Memisah Phaser & vendor besar ke chunk tersendiri
     rollupOptions: {
       output: {
-        manualChunks: {
-          phaser: ['phaser'],
-          vendor: ['howler', 'gsap', 'zustand', 'socket.io-client']
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('phaser')) {
+              return 'phaser';
+            }
+            if (
+              id.includes('howler') ||
+              id.includes('gsap') ||
+              id.includes('zustand') ||
+              id.includes('socket.io-client')
+            ) {
+              return 'vendor';
+            }
+          }
         }
       }
     },
