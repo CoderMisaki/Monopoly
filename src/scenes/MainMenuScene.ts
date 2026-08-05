@@ -14,19 +14,32 @@ export class MainMenuScene extends Phaser.Scene {
     });
     title.setOrigin(0.5);
 
-    const startText = this.add.text(width / 2, height / 2, 'Click to Start', {
+    const localPlayText = this.add.text(width / 2, height / 2, 'Local Play', {
       fontSize: '32px',
       color: '#ffffff'
     });
-    startText.setOrigin(0.5);
-    startText.setInteractive({ useHandCursor: true });
+    localPlayText.setOrigin(0.5);
+    localPlayText.setInteractive({ useHandCursor: true });
 
-    startText.on('pointerdown', () => {
-      // Initialize or resume Howler context on user interaction
+    localPlayText.on('pointerdown', () => {
       if (Howler.ctx && Howler.ctx.state !== 'running') {
         Howler.ctx.resume();
       }
-      this.scene.start('GameScene');
+      this.scene.start('GameScene', { mode: 'local' });
+    });
+
+    const onlinePlayText = this.add.text(width / 2, height / 2 + 50, 'Online Play', {
+      fontSize: '32px',
+      color: '#ffffff'
+    });
+    onlinePlayText.setOrigin(0.5);
+    onlinePlayText.setInteractive({ useHandCursor: true });
+
+    onlinePlayText.on('pointerdown', () => {
+      if (Howler.ctx && Howler.ctx.state !== 'running') {
+        Howler.ctx.resume();
+      }
+      this.scene.start('GameScene', { mode: 'online' });
     });
   }
 }
