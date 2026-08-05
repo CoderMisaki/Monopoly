@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { Howler } from 'howler';
 
 export class MainMenuScene extends Phaser.Scene {
   constructor() {
@@ -21,6 +22,10 @@ export class MainMenuScene extends Phaser.Scene {
     startText.setInteractive({ useHandCursor: true });
 
     startText.on('pointerdown', () => {
+      // Initialize or resume Howler context on user interaction
+      if (Howler.ctx && Howler.ctx.state !== 'running') {
+        Howler.ctx.resume();
+      }
       this.scene.start('GameScene');
     });
   }
