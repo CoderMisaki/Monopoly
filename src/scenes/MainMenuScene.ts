@@ -1,45 +1,69 @@
-import Phaser from 'phaser';
 import { Howler } from 'howler';
 
-export class MainMenuScene extends Phaser.Scene {
-  constructor() {
-    super('MainMenuScene');
+export class MainMenuScene {
+  private container: HTMLDivElement;
+
+  constructor(parent: HTMLDivElement) {
+    this.container = parent;
   }
 
   create() {
-    const { width, height } = this.scale;
-    const title = this.add.text(width / 2, height / 2 - 100, 'City Empire', {
-      fontSize: '48px',
-      color: '#ffffff'
-    });
-    title.setOrigin(0.5);
+    this.container.innerHTML = `
+      <div id="main-menu" style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        z-index: 1000;
+      ">
+        <h1 style="font-size: 4em; margin-bottom: 50px;">City Empire</h1>
+        <button id="local-play-button" style="
+          font-size: 2em;
+          padding: 15px 30px;
+          margin: 10px;
+          cursor: pointer;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+        ">Local Play</button>
+        <button id="online-play-button" style="
+          font-size: 2em;
+          padding: 15px 30px;
+          margin: 10px;
+          cursor: pointer;
+          background-color: #008CBA;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+        ">Online Play</button>
+      </div>
+    `;
 
-    const localPlayText = this.add.text(width / 2, height / 2, 'Local Play', {
-      fontSize: '32px',
-      color: '#ffffff'
-    });
-    localPlayText.setOrigin(0.5);
-    localPlayText.setInteractive({ useHandCursor: true });
-
-    localPlayText.on('pointerdown', () => {
+    document.getElementById('local-play-button')?.addEventListener('click', () => {
       if (Howler.ctx && Howler.ctx.state !== 'running') {
         Howler.ctx.resume();
       }
-      this.scene.start('GameScene', { mode: 'local' });
+      // Assuming startGame is globally available via window
+      (window as any).startGame('local');
     });
 
-    const onlinePlayText = this.add.text(width / 2, height / 2 + 50, 'Online Play', {
-      fontSize: '32px',
-      color: '#ffffff'
-    });
-    onlinePlayText.setOrigin(0.5);
-    onlinePlayText.setInteractive({ useHandCursor: true });
-
-    onlinePlayText.on('pointerdown', () => {
+    document.getElementById('online-play-button')?.addEventListener('click', () => {
       if (Howler.ctx && Howler.ctx.state !== 'running') {
         Howler.ctx.resume();
       }
-      this.scene.start('GameScene', { mode: 'online' });
+      (window as any).startGame('online');
     });
   }
 }
