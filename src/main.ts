@@ -1,24 +1,6 @@
-import Phaser from 'phaser';
-import { BootScene } from './scenes/BootScene';
-import { MainMenuScene } from './scenes/MainMenuScene';
-import { GameScene } from './scenes/GameScene';
+import { Monopoly3DScene } from './scenes/Monopoly3DScene.js';
 
-const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
-  width: 1280,
-  height: 720,
-  parent: 'app',
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH
-  },
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: false
-    }
-  },
-  scene: [BootScene, MainMenuScene, GameScene]
-};
-
-new Phaser.Game(config);
+// Inisialisasi scene Three.js
+const monopoly3D = new Monopoly3DScene();
+monopoly3D.init();
+monopoly3D.animate();
