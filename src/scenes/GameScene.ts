@@ -20,21 +20,23 @@ export interface BoardSpace {
   name: string;
 }
 
+export interface Player {
+  id: number;
+  token: Phaser.GameObjects.Arc;
+  position: number;
+  color: number;
+  cash: number;
+  totalAssets: number;
+  character: Character;
+}
+
 export class GameScene extends Phaser.Scene {
   private socket: Socket | null = null;
   private mode: string = 'local';
   private boardGraphics!: Phaser.GameObjects.Graphics;
   private boardSpaces: BoardSpace[] = [];
 
-  private players: {
-    id: number;
-    token: Phaser.GameObjects.Arc;
-    position: number;
-    color: number;
-    cash: number;
-    totalAssets: number;
-    character: Character;
-  }[] = [];
+  private players: Player[] = [];
 
   private playerPanels: Phaser.GameObjects.Container[] = [];
   private currentPlayerIndex: number = 0;
@@ -145,7 +147,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private updateUIPanels() {
-    this.players.forEach((player, index) => {
+    this.players.forEach((player: Player, index: number) => {
       const container = this.playerPanels[index];
       if (container) {
         const text = container.getByName('infoText') as Phaser.GameObjects.Text;
@@ -304,7 +306,7 @@ export class GameScene extends Phaser.Scene {
   private moveCurrentPlayer(spaces: number) {
     const player = this.players[this.currentPlayerIndex];
     let currentPos = player.position;
-    const targetPos = (currentPos + spaces) % 32; // 40 spaces on board
+    const targetPos = (currentPos + spaces) % 32; // 32 spaces on board
 
     // Simple animation: move one space at a time
     const moveStep = () => {
@@ -353,7 +355,7 @@ export class GameScene extends Phaser.Scene {
                 }
               } else if (landedSpace.ownerId !== player.id) {
                 // Pay toll
-                const owner = this.players.find((p) => p.id === landedSpace.ownerId);
+                const owner = this.players.find((p: Player) => p.id === landedSpace.ownerId);
                 if (owner) {
                   const baseToll = landedSpace.basePrice * 0.5 * (landedSpace.level || 1);
                   // Apply character discount
@@ -370,9 +372,9 @@ export class GameScene extends Phaser.Scene {
             }
 
             // Recalculate total assets
-            this.players.forEach((p) => {
+            this.players.forEach((p: Player) => {
               p.totalAssets = p.cash;
-              this.boardSpaces.forEach((s) => {
+              this.boardSpaces.forEach((s: BoardSpace) => {
                 if (s.ownerId === p.id) {
                   p.totalAssets += s.basePrice * (s.level || 1);
                 }
@@ -405,8 +407,6 @@ export class GameScene extends Phaser.Scene {
     this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
 
     // Update UI
-    // const nextPlayer = this.players[this.currentPlayerIndex];
-    this.updateUIPanels();
     this.updateUIPanels();
 
     // Re-enable roll button
