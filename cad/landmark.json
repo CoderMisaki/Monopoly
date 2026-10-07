@@ -1,0 +1,243 @@
+{
+  "name": "LandmarkTower",
+  "units": "mm",
+  "description": "Landmark game asset: grand stepped tower, 3 tiers + spire, corner-aligned",
+  "operations": [
+    {
+      "id": "doc",
+      "op": "new_document",
+      "params": {
+        "name": "LandmarkTower"
+      }
+    },
+    {
+      "id": "units",
+      "op": "set_units",
+      "params": {
+        "units": "mm"
+      }
+    },
+    {
+      "id": "p_b1",
+      "op": "create_parameter",
+      "params": {
+        "name": "tier1_xy",
+        "value": 12000,
+        "unit": "mm",
+        "comment": "tier 1 footprint"
+      }
+    },
+    {
+      "id": "p_h1",
+      "op": "create_parameter",
+      "params": {
+        "name": "tier1_h",
+        "value": 6000,
+        "unit": "mm",
+        "comment": "tier 1 height"
+      }
+    },
+    {
+      "id": "p_b2",
+      "op": "create_parameter",
+      "params": {
+        "name": "tier2_xy",
+        "value": 9000,
+        "unit": "mm",
+        "comment": "tier 2 footprint"
+      }
+    },
+    {
+      "id": "p_h2",
+      "op": "create_parameter",
+      "params": {
+        "name": "tier2_h",
+        "value": 5000,
+        "unit": "mm",
+        "comment": "tier 2 height"
+      }
+    },
+    {
+      "id": "p_b3",
+      "op": "create_parameter",
+      "params": {
+        "name": "tier3_xy",
+        "value": 6000,
+        "unit": "mm",
+        "comment": "tier 3 footprint"
+      }
+    },
+    {
+      "id": "p_h3",
+      "op": "create_parameter",
+      "params": {
+        "name": "tier3_h",
+        "value": 4000,
+        "unit": "mm",
+        "comment": "tier 3 height"
+      }
+    },
+    {
+      "id": "p_sp",
+      "op": "create_parameter",
+      "params": {
+        "name": "spire_h",
+        "value": 6000,
+        "unit": "mm",
+        "comment": "spire height"
+      }
+    },
+    {
+      "id": "sk1",
+      "op": "create_sketch",
+      "params": {
+        "plane": "XY",
+        "name": "tier1"
+      }
+    },
+    {
+      "id": "r1",
+      "op": "draw_rectangle",
+      "params": {
+        "sketch": "@sk1",
+        "width": "tier1_xy",
+        "height": "tier1_xy"
+      }
+    },
+    {
+      "id": "e1",
+      "op": "extrude",
+      "params": {
+        "sketch": "@sk1",
+        "distance": "tier1_h",
+        "operation": "new_body"
+      }
+    },
+    {
+      "id": "sk2",
+      "op": "create_sketch",
+      "params": {
+        "plane": "XY",
+        "name": "tier2"
+      }
+    },
+    {
+      "id": "r2",
+      "op": "draw_rectangle",
+      "params": {
+        "sketch": "@sk2",
+        "width": "tier2_xy",
+        "height": "tier2_xy"
+      }
+    },
+    {
+      "id": "e2",
+      "op": "extrude",
+      "params": {
+        "sketch": "@sk2",
+        "distance": "tier2_h",
+        "operation": "join"
+      }
+    },
+    {
+      "id": "sk3",
+      "op": "create_sketch",
+      "params": {
+        "plane": "XY",
+        "name": "tier3"
+      }
+    },
+    {
+      "id": "r3",
+      "op": "draw_rectangle",
+      "params": {
+        "sketch": "@sk3",
+        "width": "tier3_xy",
+        "height": "tier3_xy"
+      }
+    },
+    {
+      "id": "e3",
+      "op": "extrude",
+      "params": {
+        "sketch": "@sk3",
+        "distance": "tier3_h",
+        "operation": "join"
+      }
+    },
+    {
+      "id": "sks",
+      "op": "create_sketch",
+      "params": {
+        "plane": "XY",
+        "name": "spire"
+      }
+    },
+    {
+      "id": "csp",
+      "op": "draw_circle",
+      "params": {
+        "sketch": "@sks",
+        "center": [
+          [
+            3000,
+            3000
+          ]
+        ],
+        "diameter": 1200
+      }
+    },
+    {
+      "id": "esp",
+      "op": "extrude",
+      "params": {
+        "sketch": "@sks",
+        "distance": "spire_h",
+        "operation": "join"
+      }
+    },
+    {
+      "id": "gate",
+      "op": "hole",
+      "params": {
+        "body": "@e1",
+        "face": "top",
+        "points": [
+          [
+            6000,
+            1500
+          ]
+        ],
+        "hole_type": "simple",
+        "diameter": 2400
+      }
+    },
+    {
+      "id": "bbox",
+      "op": "measure_bounding_box",
+      "params": {
+        "body": "@e1"
+      }
+    },
+    {
+      "id": "shot",
+      "op": "screenshot",
+      "params": {
+        "path": "/tmp/monopoly/public/cad/landmark.svg"
+      }
+    },
+    {
+      "id": "export",
+      "op": "export_model",
+      "params": {
+        "path": "/tmp/monopoly/cad/landmark.step",
+        "format": "step"
+      }
+    },
+    {
+      "id": "state",
+      "op": "get_state",
+      "params": {}
+    }
+  ]
+}

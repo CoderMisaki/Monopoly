@@ -1,0 +1,195 @@
+{
+  "note": "mock backend: step export placeholder - run against live Fusion 360 for real geometry",
+  "document": "LandmarkTower",
+  "units": "mm",
+  "parameters": [
+    {
+      "name": "tier1_xy",
+      "expression": "12000",
+      "value": 12000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "tier1_h",
+      "expression": "6000",
+      "value": 6000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "tier2_xy",
+      "expression": "9000",
+      "value": 9000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "tier2_h",
+      "expression": "5000",
+      "value": 5000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "tier3_xy",
+      "expression": "6000",
+      "value": 6000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "tier3_h",
+      "expression": "4000",
+      "value": 4000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "spire_h",
+      "expression": "6000",
+      "value": 6000.0,
+      "unit": "mm"
+    }
+  ],
+  "bodies": [
+    {
+      "id": "e1",
+      "bbox_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          12000.0,
+          12000.0,
+          6000.0
+        ]
+      ],
+      "features": [
+        {
+          "op": "extrude",
+          "mode": "join",
+          "id": "e2"
+        },
+        {
+          "op": "extrude",
+          "mode": "join",
+          "id": "e3"
+        },
+        {
+          "op": "extrude",
+          "mode": "join",
+          "id": "esp"
+        },
+        {
+          "op": "hole",
+          "face": "top",
+          "count": 1,
+          "diameter": 2400.0,
+          "type": "simple",
+          "size": "",
+          "points": [
+            [
+              6000,
+              1500
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "doc",
+      "op": "new_document"
+    },
+    {
+      "id": "units",
+      "op": "set_units"
+    },
+    {
+      "id": "p_b1",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_h1",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_b2",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_h2",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_b3",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_h3",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_sp",
+      "op": "create_parameter"
+    },
+    {
+      "id": "sk1",
+      "op": "create_sketch"
+    },
+    {
+      "id": "r1",
+      "op": "draw_rectangle"
+    },
+    {
+      "id": "e1",
+      "op": "extrude"
+    },
+    {
+      "id": "sk2",
+      "op": "create_sketch"
+    },
+    {
+      "id": "r2",
+      "op": "draw_rectangle"
+    },
+    {
+      "id": "e2",
+      "op": "extrude"
+    },
+    {
+      "id": "sk3",
+      "op": "create_sketch"
+    },
+    {
+      "id": "r3",
+      "op": "draw_rectangle"
+    },
+    {
+      "id": "e3",
+      "op": "extrude"
+    },
+    {
+      "id": "sks",
+      "op": "create_sketch"
+    },
+    {
+      "id": "csp",
+      "op": "draw_circle"
+    },
+    {
+      "id": "esp",
+      "op": "extrude"
+    },
+    {
+      "id": "gate",
+      "op": "hole"
+    },
+    {
+      "id": "bbox",
+      "op": "measure_bounding_box"
+    },
+    {
+      "id": "shot",
+      "op": "screenshot"
+    }
+  ]
+}

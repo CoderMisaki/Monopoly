@@ -1,0 +1,155 @@
+{
+  "note": "mock backend: step export placeholder - run against live Fusion 360 for real geometry",
+  "document": "RumahKecil",
+  "units": "mm",
+  "parameters": [
+    {
+      "name": "length",
+      "expression": "8000",
+      "value": 8000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "width",
+      "expression": "6000",
+      "value": 6000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "wall_h",
+      "expression": "3000",
+      "value": 3000.0,
+      "unit": "mm"
+    },
+    {
+      "name": "slab_t",
+      "expression": "300",
+      "value": 300.0,
+      "unit": "mm"
+    },
+    {
+      "name": "roof_t",
+      "expression": "250",
+      "value": 250.0,
+      "unit": "mm"
+    },
+    {
+      "name": "overhang",
+      "expression": "500",
+      "value": 500.0,
+      "unit": "mm"
+    }
+  ],
+  "bodies": [
+    {
+      "id": "ext_slab",
+      "bbox_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          8000.0,
+          6000.0,
+          3000.0
+        ]
+      ],
+      "features": [
+        {
+          "op": "extrude",
+          "mode": "join",
+          "id": "ext_wall"
+        },
+        {
+          "op": "hole",
+          "face": "top",
+          "count": 2,
+          "diameter": 900.0,
+          "type": "simple",
+          "size": "",
+          "points": [
+            [
+              2000,
+              3000
+            ],
+            [
+              6000,
+              3000
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "doc",
+      "op": "new_document"
+    },
+    {
+      "id": "units",
+      "op": "set_units"
+    },
+    {
+      "id": "p_len",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_wid",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_wh",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_slab",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_roof",
+      "op": "create_parameter"
+    },
+    {
+      "id": "p_ov",
+      "op": "create_parameter"
+    },
+    {
+      "id": "sk_slab",
+      "op": "create_sketch"
+    },
+    {
+      "id": "r_slab",
+      "op": "draw_rectangle"
+    },
+    {
+      "id": "ext_slab",
+      "op": "extrude"
+    },
+    {
+      "id": "sk_wall",
+      "op": "create_sketch"
+    },
+    {
+      "id": "r_wall",
+      "op": "draw_rectangle"
+    },
+    {
+      "id": "ext_wall",
+      "op": "extrude"
+    },
+    {
+      "id": "win",
+      "op": "hole"
+    },
+    {
+      "id": "bbox",
+      "op": "measure_bounding_box"
+    },
+    {
+      "id": "shot",
+      "op": "screenshot"
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "name": "RumahKecil",
+  "units": "mm",
+  "description": "Small house game asset: 8x6 m footprint, 3 m walls, flat roof with overhang, round windows",
+  "operations": [
+    {
+      "id": "doc",
+      "op": "new_document",
+      "params": {
+        "name": "RumahKecil"
+      }
+    },
+    {
+      "id": "units",
+      "op": "set_units",
+      "params": {
+        "units": "mm"
+      }
+    },
+    {
+      "id": "p_len",
+      "op": "create_parameter",
+      "params": {
+        "name": "length",
+        "value": 8000,
+        "unit": "mm",
+        "comment": "footprint X"
+      }
+    },
+    {
+      "id": "p_wid",
+      "op": "create_parameter",
+      "params": {
+        "name": "width",
+        "value": 6000,
+        "unit": "mm",
+        "comment": "footprint Y"
+      }
+    },
+    {
+      "id": "p_wh",
+      "op": "create_parameter",
+      "params": {
+        "name": "wall_h",
+        "value": 3000,
+        "unit": "mm",
+        "comment": "wall height"
+      }
+    },
+    {
+      "id": "p_slab",
+      "op": "create_parameter",
+      "params": {
+        "name": "slab_t",
+        "value": 300,
+        "unit": "mm",
+        "comment": "foundation slab"
+      }
+    },
+    {
+      "id": "p_roof",
+      "op": "create_parameter",
+      "params": {
+        "name": "roof_t",
+        "value": 250,
+        "unit": "mm",
+        "comment": "roof slab"
+      }
+    },
+    {
+      "id": "p_ov",
+      "op": "create_parameter",
+      "params": {
+        "name": "overhang",
+        "value": 500,
+        "unit": "mm",
+        "comment": "roof overhang"
+      }
+    },
+    {
+      "id": "sk_slab",
+      "op": "create_sketch",
+      "params": {
+        "plane": "XY",
+        "name": "slab"
+      }
+    },
+    {
+      "id": "r_slab",
+      "op": "draw_rectangle",
+      "params": {
+        "sketch": "@sk_slab",
+        "width": "length",
+        "height": "width"
+      }
+    },
+    {
+      "id": "ext_slab",
+      "op": "extrude",
+      "params": {
+        "sketch": "@sk_slab",
+        "distance": "slab_t",
+        "operation": "new_body"
+      }
+    },
+    {
+      "id": "sk_wall",
+      "op": "create_sketch",
+      "params": {
+        "plane": "XY",
+        "name": "walls"
+      }
+    },
+    {
+      "id": "r_wall",
+      "op": "draw_rectangle",
+      "params": {
+        "sketch": "@sk_wall",
+        "width": "length",
+        "height": "width"
+      }
+    },
+    {
+      "id": "ext_wall",
+      "op": "extrude",
+      "params": {
+        "sketch": "@sk_wall",
+        "distance": "wall_h",
+        "operation": "join"
+      }
+    },
+    {
+      "id": "win",
+      "op": "hole",
+      "params": {
+        "body": "@ext_slab",
+        "face": "top",
+        "points": [
+          [
+            2000,
+            3000
+          ],
+          [
+            6000,
+            3000
+          ]
+        ],
+        "hole_type": "simple",
+        "diameter": 900
+      }
+    },
+    {
+      "id": "bbox",
+      "op": "measure_bounding_box",
+      "params": {
+        "body": "@ext_slab"
+      }
+    },
+    {
+      "id": "shot",
+      "op": "screenshot",
+      "params": {
+        "path": "/tmp/monopoly/public/cad/rumah_kecil.svg"
+      }
+    },
+    {
+      "id": "export",
+      "op": "export_model",
+      "params": {
+        "path": "/tmp/monopoly/cad/rumah_kecil.step",
+        "format": "step"
+      }
+    },
+    {
+      "id": "state",
+      "op": "get_state",
+      "params": {}
+    }
+  ]
+}
